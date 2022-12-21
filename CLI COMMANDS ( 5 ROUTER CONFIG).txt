@@ -1,0 +1,220 @@
+STATIC ROUTING (BETWEEN 5 ROUTERS)
+
+Router NORTH
+
+interface fastEthernet 0/0
+ip address 192.168.1.1 255.255.255.0
+no shutdown
+
+interface fastEthernet 0/1
+ip address 192.168.5.1 255.255.255.0
+no shutdown
+
+
+
+Router WEST
+
+interface fastEthernet 0/0
+ip address 192.168.2.1 255.255.255.0
+no shutdown
+
+interface fastEthernet 0/1
+ip address 192.168.6.1 255.255.255.0
+no shutdown
+
+
+
+Router SOUTH
+
+interface fastEthernet 0/0
+ip address 192.168.3.1 255.255.255.0
+no shutdown
+
+interface fastEthernet 0/1
+ip address 192.168.7.1 255.255.255.0
+no shutdown
+
+
+
+Router EAST
+
+interface fastEthernet 0/0
+ip address 192.168.4.1 255.255.255.0
+no shutdown
+
+interface fastEthernet 0/1
+ip address 192.168.8.1 255.255.255.0
+no shutdown
+
+
+NOTE: Turn off Router CENTRAL (2811) and add module NM-2FE2W for additional interfaces fastEthernet 1/0, fastEthernet 1/1 
+
+
+
+Router CENTRAL
+
+interface fastEthernet 0/0
+ip address 192.168.5.2 255.255.255.0
+no shutdown
+
+interface fastEthernet 0/1
+ip address 192.168.8.2 255.255.255.0
+no shutdown
+
+interface fastEthernet 1/0
+ip address 192.168.7.2 255.255.255.0
+no shutdown
+
+interface fastEthernet 1/1
+ip address 192.168.6.2 255.255.255.0
+no shutdown
+
+
+
+
+Configure Static Route on Router NORTH
+
+ip route 192.168.2.0/24 255.255.255.0 192.168.5.2
+ip route 192.168.3.0/24 255.255.255.0 192.168.5.2
+ip route 192.168.4.0/24 255.255.255.0 192.168.5.2
+ip route 192.168.6.0/24 255.255.255.0 192.168.5.2
+ip route 192.168.7.0/24 255.255.255.0 192.168.5.2
+ip route 192.168.8.0/24 255.255.255.0 192.168.5.2
+
+
+Configure Static Route on Router WEST
+
+ip route 192.168.1.0/24 255.255.255.0 192.168.6.2
+ip route 192.168.3.0/24 255.255.255.0 192.168.6.2
+ip route 192.168.4.0/24 255.255.255.0 192.168.6.2
+ip route 192.168.5.0/24 255.255.255.0 192.168.6.2
+ip route 192.168.7.0/24 255.255.255.0 192.168.6.2
+ip route 192.168.8.0/24 255.255.255.0 192.168.6.2
+
+
+Configure Static Route on Router SOUTH
+
+ip route 192.168.1.0/24 255.255.255.0 192.168.7.2
+ip route 192.168.2.0/24 255.255.255.0 192.168.7.2
+ip route 192.168.4.0/24 255.255.255.0 192.168.7.2
+ip route 192.168.5.0/24 255.255.255.0 192.168.7.2
+ip route 192.168.6.0/24 255.255.255.0 192.168.7.2
+ip route 192.168.8.0/24 255.255.255.0 192.168.7.2
+
+
+Configure Static Route on Router CENTRAL
+
+ip route 192.168.1.0/24 255.255.255.0 192.168.5.1
+ip route 192.168.2.0/24 255.255.255.0 192.168.6.1
+ip route 192.168.3.0/24 255.255.255.0 192.168.7.1
+ip route 192.168.4.0/24 255.255.255.0 192.168.8.1
+
+
+Connectivity Verification: 
+
+show ip route static -> displays static routes found in routing table
+
+show ip interface brief ->  displays networks connected to ports
+
+
+ROUTER NORTH - Routing Table - Static Routes
+
+S    192.168.2.0/24 [1/0] via 192.168.5.2
+S    192.168.3.0/24 [1/0] via 192.168.5.2
+S    192.168.4.0/24 [1/0] via 192.168.5.2
+S    192.168.6.0/24 [1/0] via 192.168.5.2
+S    192.168.7.0/24 [1/0] via 192.168.5.2
+S    192.168.8.0/24 [1/0] via 192.168.5.2
+
+ROUTER NORTH - network connected to ports
+
+Interface              IP-Address      OK? Method Status                Protocol 
+FastEthernet0/0        192.168.1.1     YES manual up                    up 
+FastEthernet0/1        192.168.5.1     YES manual up                    up
+
+
+
+ROUTER WEST - Routing Table - Static Routes
+
+S    192.168.1.0/24 [1/0] via 192.168.6.2
+S    192.168.3.0/24 [1/0] via 192.168.6.2
+S    192.168.4.0/24 [1/0] via 192.168.6.2
+S    192.168.5.0/24 [1/0] via 192.168.6.2
+S    192.168.7.0/24 [1/0] via 192.168.6.2
+S    192.168.8.0/24 [1/0] via 192.168.6.2
+
+
+ROUTER WEST - network connected to ports
+
+Interface              IP-Address      OK? Method Status                Protocol 
+FastEthernet0/0        192.168.2.1     YES NVRAM  up                    up 
+FastEthernet0/1        192.168.6.1     YES NVRAM  up                    up
+
+
+
+ROUTER SOUTH - Routing Table - Static Routes
+
+S    192.168.1.0/24 [1/0] via 192.168.7.2
+S    192.168.2.0/24 [1/0] via 192.168.7.2
+S    192.168.4.0/24 [1/0] via 192.168.7.2
+S    192.168.5.0/24 [1/0] via 192.168.7.2
+S    192.168.6.0/24 [1/0] via 192.168.7.2
+S    192.168.8.0/24 [1/0] via 192.168.7.2
+
+
+ROUTER SOUTH - network connected to ports
+
+Interface              IP-Address      OK? Method Status                Protocol 
+FastEthernet0/0        192.168.3.1     YES manual up                    up 
+FastEthernet0/1        192.168.7.1     YES manual up                    up
+
+
+
+ROUTER EAST - Routing Table - Static Routes
+
+S    192.168.1.0/24 [1/0] via 192.168.8.2
+S    192.168.2.0/24 [1/0] via 192.168.8.2
+S    192.168.3.0/24 [1/0] via 192.168.8.2
+S    192.168.5.0/24 [1/0] via 192.168.8.2
+S    192.168.6.0/24 [1/0] via 192.168.8.2
+S    192.168.7.0/24 [1/0] via 192.168.8.2
+
+
+ROUTER EAST - network connected to ports
+
+Interface              IP-Address      OK? Method Status                Protocol 
+FastEthernet0/0        192.168.4.1     YES manual up                    up 
+FastEthernet0/1        192.168.8.1     YES manual up                    up 
+
+
+
+ROUTER CENTRAL - Routing Table - Static Routes
+
+S    192.168.1.0/24 [1/0] via 192.168.5.1
+S    192.168.2.0/24 [1/0] via 192.168.6.1
+S    192.168.3.0/24 [1/0] via 192.168.7.1
+S    192.168.4.0/24 [1/0] via 192.168.8.1
+
+
+ROUTER CENTRAL - network connected to ports
+
+Interface              IP-Address      OK? Method Status                Protocol 
+FastEthernet0/0        192.168.5.2     YES manual up                    up 
+FastEthernet0/1        192.168.8.2     YES manual up                    up 
+FastEthernet1/0        192.168.7.2     YES manual up                    up 
+FastEthernet1/1        192.168.6.2     YES manual up                    up 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
