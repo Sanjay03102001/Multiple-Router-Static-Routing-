@@ -10,6 +10,7 @@ interface fastEthernet 0/1
 ip address 192.168.4.1 255.255.255.0
 no shutdown
 
+NOTE: Turn off Router 2 (2811) and add module NM-1FE2W for additional interface fastEthernet 1/0
 
 Router 2
 
